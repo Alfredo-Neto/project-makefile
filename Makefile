@@ -1,5 +1,5 @@
-NAME = hello2
-NAME2 = Alfredo
+NAME = libft.a
+SRC = myFunction.c test.c
 
 # SRC  =	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 # 		ft_memchr.c ft_memcmp.c ft_strlen.c ft_strlcpy.c ft_strlcat.c \
@@ -8,8 +8,6 @@ NAME2 = Alfredo
 # 		ft_toupper.c ft_tolower.c ft_calloc.c ft_strdup.c \
 # 		ft_substr.c	ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c	\
 # 		ft_putchar_fd.c	ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
-
-SRC	=	helloWorld.c qualquernome.c
 		
 # SRC_BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
 # 			ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
@@ -18,23 +16,26 @@ OBJ = $(subst .c,.o,$(SRC))
 
 OBJ_BONUS = $(subst .c,.o,$(SRC_BONUS))
 
-all: $(NAME) 
-	./$(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJ)
-	@gcc -Wall -Wextra -Werror $(SRC) -o $@
+$(NAME):
+	@gcc -Wall -Wextra -Werror -c $(SRC)
+	@ar rc $(NAME) $(OBJ)
+	# @gcc -Wall -Wextra -Werror -L. -lft
+	@ranlib $(NAME)
 
-bonus: $(NAME2)
-	 ./$(NAME2)
+bonus: $(OBJ_BONUS)
 
-$(NAME2): $(OBJ)
-	@gcc -Wall -Wextra -Werror $(SRC) -o $@
+$(OBJ_BONUS):
+	@gcc -Wall -Wextra -Werror -c $(SRC) $(SRC_BONUS)
+	@ar rc $(NAME) $(OBJ) $(OBJ_BONUS)
+	@ranlib $(NAME)
 
 clean:
 	@/bin/rm -f $(OBJ) $(OBJ_BONUS)
 
 fclean: clean
-	@/bin/rm -f $(NAME) *.a *.x
+	@/bin/rm -f $(NAME) a.out
 	
 re: fclean all
 

@@ -2,6 +2,6 @@
 #define _H_TESTE
 #include <stdio.h>
  
-void teste(void);
+void myFunction(void);
  
 #endif
